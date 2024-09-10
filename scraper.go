@@ -7,12 +7,11 @@ import (
 )
 
 type voScraper struct {
-	timetableDomain, timetableUrl string
+	timetableUrl string
 }
 
 func (s *voScraper) printSomeTimetable() {
-	c := colly.NewCollector(
-		colly.AllowedDomains(s.timetableDomain))
+	c := colly.NewCollector()
 
 	c.OnHTML("html", func(e *colly.HTMLElement) {
 		fmt.Println(e.Text)

@@ -25,11 +25,10 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	timetableDomain := os.Getenv("TIMETABLE_DOMAIN")
 	timetableUrl := os.Getenv("TIMETABLE_URL")
-	fmt.Println(timetableDomain, timetableUrl)
+	fmt.Println(timetableUrl)
 
-	s := voScraper{timetableDomain: timetableDomain, timetableUrl: timetableUrl}
+	s := voScraper{timetableUrl: timetableUrl}
 	s.printSomeTimetable()
 
 	cl := Class{1, "1a Example Class"}
