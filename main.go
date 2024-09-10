@@ -42,4 +42,6 @@ func main() {
 	if isPRz {
 		fmt.Println(przRoom)
 	}
+
+	fmt.Println(s.getClasses())
 }
