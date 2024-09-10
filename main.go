@@ -31,4 +31,15 @@ func main() {
 
 	s := voScraper{timetableDomain: timetableDomain, timetableUrl: timetableUrl}
 	s.printSomeTimetable()
+
+	cl := Class{1, "1a Example Class"}
+	fmt.Println(cl.getUrl())
+
+	room := Room{1, "A100PRz"}
+	fmt.Println(room.getUrl())
+
+	isPRz, przRoom := room.getIsPRz()
+	if isPRz {
+		fmt.Println(przRoom)
+	}
 }
