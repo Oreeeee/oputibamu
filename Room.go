@@ -24,12 +24,12 @@ func getIsPRz(name string) (bool, PRzRoom) {
 	re, _ := regexp.Compile(`([A-Za-z])(\d{3})PRz`)
 	match := re.FindStringSubmatch(name)
 
+	if match == nil {
+		return false, PRzRoom{}
+	}
+
 	building := match[1]
 	room, _ := strconv.Atoi(match[2])
 
-	if match != nil {
-		return true, PRzRoom{building, room}
-	} else {
-		return false, PRzRoom{}
-	}
+	return true, PRzRoom{building, room}
 }

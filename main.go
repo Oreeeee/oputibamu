@@ -42,4 +42,6 @@ func main() {
 	}
 
 	fmt.Println(s.getClasses())
+	fmt.Println(s.getRooms())
+	fmt.Println(s.getTeachers())
 }
