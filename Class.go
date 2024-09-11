@@ -5,8 +5,10 @@ import "fmt"
 type Class struct {
 	id   int
 	name string
+	url  string
 }
 
-func (c *Class) getUrl() string {
-	return fmt.Sprintf("/plany/o%d.html", c.id)
+func InitClass(id int, name string) Class {
+	url := fmt.Sprintf("/plany/o%d.html", id)
+	return Class{id, name, url}
 }

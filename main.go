@@ -31,15 +31,14 @@ func main() {
 	s := voScraper{timetableUrl: timetableUrl}
 	s.printSomeTimetable()
 
-	cl := Class{1, "1a Example Class"}
-	fmt.Println(cl.getUrl())
+	cl := InitClass(1, "1a Example Class")
+	fmt.Println(cl.url)
 
-	room := Room{1, "A100PRz"}
-	fmt.Println(room.getUrl())
+	room := InitRoom(1, "A100PRz")
+	fmt.Println(room.url)
 
-	isPRz, przRoom := room.getIsPRz()
-	if isPRz {
-		fmt.Println(przRoom)
+	if room.isPRz {
+		fmt.Println(room.prz)
 	}
 
 	fmt.Println(s.getClasses())

@@ -32,7 +32,7 @@ func (s *voScraper) getClasses() []Class {
 	c.OnHTML("[name=\"oddzialy\"]", func(e *colly.HTMLElement) {
 		e.ForEach("[value]", func(i int, element *colly.HTMLElement) {
 			id, _ := strconv.Atoi(element.Attr("value"))
-			cA = append(cA, Class{id, element.Text})
+			cA = append(cA, InitClass(id, element.Text))
 		})
 	})
 

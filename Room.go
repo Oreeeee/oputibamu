@@ -7,17 +7,22 @@ import (
 )
 
 type Room struct {
-	id   int
-	name string
+	id    int
+	name  string
+	url   string
+	isPRz bool
+	prz   PRzRoom
 }
 
-func (r *Room) getUrl() string {
-	return fmt.Sprintf("/plany/s%d.html", r.id)
+func InitRoom(id int, name string) Room {
+	url := fmt.Sprintf("/plany/s%d.html", id)
+	isPRz, prz := getIsPRz(name)
+	return Room{id, name, url, isPRz, prz}
 }
 
-func (r *Room) getIsPRz() (bool, PRzRoom) {
+func getIsPRz(name string) (bool, PRzRoom) {
 	re, _ := regexp.Compile(`([A-Za-z])(\d{3})PRz`)
-	match := re.FindStringSubmatch(r.name)
+	match := re.FindStringSubmatch(name)
 
 	building := match[1]
 	room, _ := strconv.Atoi(match[2])
