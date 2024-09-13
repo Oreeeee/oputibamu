@@ -31,17 +31,18 @@ func main() {
 	s := voScraper{timetableUrl: timetableUrl}
 	s.printSomeTimetable()
 
-	cl := InitClass(1, "1a Example Class")
-	fmt.Println(cl.url)
-
-	room := InitRoom(1, "A100PRz")
-	fmt.Println(room.url)
-
-	if room.isPRz {
-		fmt.Println(room.prz)
-	}
-
-	fmt.Println(s.getClasses())
-	fmt.Println(s.getRooms())
-	fmt.Println(s.getTeachers())
+	//cl := InitClass(1, "1a Example Class")
+	//fmt.Println(cl.url)
+	//
+	//room := InitRoom(1, "A100PRz")
+	//fmt.Println(room.url)
+	//
+	//if room.isPRz {
+	//	fmt.Println(room.prz)
+	//}
+	//
+	//fmt.Println(s.getClasses())
+	//fmt.Println(s.getRooms())
+	//fmt.Println(s.getTeachers())
+	fmt.Println(s.getRawTable())
 }
