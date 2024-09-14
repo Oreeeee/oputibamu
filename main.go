@@ -45,4 +45,5 @@ func main() {
 	//fmt.Println(s.getRooms())
 	//fmt.Println(s.getTeachers())
 	fmt.Println(s.getRawTable())
+	//s.getRawTable()
 }
