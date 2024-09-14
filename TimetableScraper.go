@@ -3,11 +3,36 @@ package main
 import (
 	"fmt"
 	"github.com/gocolly/colly"
+	"regexp"
 	"strconv"
+	"strings"
 )
 
 func getLessonData(lessonElement *colly.HTMLElement, l *Lesson) {
-	l.subject = lessonElement.ChildText(".p")
+	subjectRaw := lessonElement.ChildText(".p")
+
+	// Grouping stuff
+	groupRegex := regexp.MustCompile(`\b\d+\/\d+\b`)
+	groupMatches := groupRegex.FindAllString(subjectRaw, -1)
+	if groupMatches == nil {
+		// The lesson is not grouped, use the raw string
+		l.subject = subjectRaw
+		l.group = 0
+		l.groupOutOf = 0
+	} else {
+		// The lesson is grouped
+		groupData := strings.Split(groupMatches[0], "/")
+
+		group, _ := strconv.Atoi(groupData[0])
+		groupOutOf, _ := strconv.Atoi(groupData[1])
+
+		l.group = group
+		l.groupOutOf = groupOutOf
+
+		// Set the subject without the group data
+		l.subject = strings.Split(subjectRaw, "-")[0]
+	}
+
 	l.teacher = lessonElement.ChildText(".n")
 	l.room = lessonElement.ChildText(".s")
 }
