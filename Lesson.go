@@ -8,8 +8,9 @@ type Lesson struct {
 	subject string
 	teacher string
 	room    string
+	day     int
 }
 
 func InitEmptyLesson() Lesson {
-	return Lesson{0, "", "", "", ""}
+	return Lesson{0, "", "", "", "", 0}
 }

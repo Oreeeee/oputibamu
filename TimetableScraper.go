@@ -16,6 +16,7 @@ func getLessonData(lessonElement *colly.HTMLElement) (string, string, string) {
 func (s *voScraper) getRawTable() []Lesson {
 	c := colly.NewCollector()
 	var m []Lesson
+	currentDay := 0
 
 	c.OnHTML(".tabela", func(tabela *colly.HTMLElement) { // The main table
 		fmt.Println("got tabela")
@@ -47,7 +48,10 @@ func (s *voScraper) getRawTable() []Lesson {
 			// Here... it gets... complicated...
 			tr.ForEach("td .l", func(i int, td *colly.HTMLElement) {
 				// Lesson data field
-				// TODO: Add days
+
+				l.day = currentDay
+				currentDay++
+
 				if td.Text == "\xc2\xa0" {
 					fmt.Println("NBSP")
 					return
@@ -76,7 +80,9 @@ func (s *voScraper) getRawTable() []Lesson {
 
 					m = append(m, l)
 				}
+
 			})
+			currentDay = 0
 		})
 	})
 
