@@ -6,11 +6,10 @@ import (
 	"strconv"
 )
 
-func getLessonData(lessonElement *colly.HTMLElement) (string, string, string) {
-	subject := lessonElement.ChildText(".p")
-	teacher := lessonElement.ChildText(".n")
-	room := lessonElement.ChildText(".s")
-	return subject, teacher, room
+func getLessonData(lessonElement *colly.HTMLElement, l *Lesson) {
+	l.subject = lessonElement.ChildText(".p")
+	l.teacher = lessonElement.ChildText(".n")
+	l.room = lessonElement.ChildText(".s")
 }
 
 func (s *voScraper) getRawTable() []Lesson {
@@ -62,22 +61,13 @@ func (s *voScraper) getRawTable() []Lesson {
 				// Multiple groups
 				td.ForEach("[style]", func(i int, sp *colly.HTMLElement) {
 					isMultipleGroups = true
-
-					subject, teacher, room := getLessonData(sp)
-					l.subject = subject
-					l.teacher = teacher
-					l.room = room
-
+					getLessonData(sp, &l)
 					m = append(m, l)
 				})
 
 				// Single group
 				if !isMultipleGroups {
-					subject, teacher, room := getLessonData(td)
-					l.subject = subject
-					l.teacher = teacher
-					l.room = room
-
+					getLessonData(td, &l)
 					m = append(m, l)
 				}
 
