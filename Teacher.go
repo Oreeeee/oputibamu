@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 type Teacher struct {
 	id   int
 	name string
@@ -9,8 +7,7 @@ type Teacher struct {
 }
 
 func InitTeacher(id int, name string) Teacher {
-	url := fmt.Sprintf("/plany/n%d.html", id)
-	return Teacher{id, name, url}
+	return Teacher{id, name, idToUrl("n", id)}
 }
 
 func InitTeacherFromHTML(htmlFile string, name string) Teacher {

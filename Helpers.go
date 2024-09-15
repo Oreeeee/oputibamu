@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -14,4 +15,8 @@ func idFromHTML(htmlFile string) int {
 	result, _ = strconv.Atoi(tmp)
 
 	return result
+}
+
+func idToUrl(prefix string, id int) string {
+	return fmt.Sprintf("/plany/%s%d.html", prefix, id)
 }

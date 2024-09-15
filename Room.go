@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"regexp"
 	"strconv"
 )
@@ -15,9 +14,8 @@ type Room struct {
 }
 
 func InitRoom(id int, name string) Room {
-	url := fmt.Sprintf("/plany/s%d.html", id)
 	isPRz, prz := getIsPRz(name)
-	return Room{id, name, url, isPRz, prz}
+	return Room{id, name, idToUrl("s", id), isPRz, prz}
 }
 
 func InitRoomFromHTML(htmlFile string, name string) Room {

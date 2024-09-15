@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 type Class struct {
 	id   int
 	name string
@@ -9,8 +7,7 @@ type Class struct {
 }
 
 func InitClass(id int, name string) Class {
-	url := fmt.Sprintf("/plany/o%d.html", id)
-	return Class{id, name, url}
+	return Class{id, name, idToUrl("o", id)}
 }
 
 func InitClassFromHTML(htmlFile string, name string) Class {
