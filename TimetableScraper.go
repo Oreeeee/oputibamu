@@ -43,10 +43,14 @@ func getLessonData(lessonElement *colly.HTMLElement, l *Lesson) {
 	l.room = InitRoomFromHTML(roomHTML, roomName)
 }
 
-func (s *voScraper) getRawTable() []Lesson {
+func (s *voScraper) getRawTable(url string) Timetable {
 	c := colly.NewCollector()
-	var m []Lesson
+	timetable := Timetable{}
 	currentDay := 0
+
+	c.OnHTML(".tytulnapis", func(title *colly.HTMLElement) { // Gets the class name
+		timetable.class = InitClassFromURL(url, title.Text)
+	})
 
 	c.OnHTML(".tabela", func(tabela *colly.HTMLElement) { // The main table
 		fmt.Println("got tabela")
@@ -93,13 +97,13 @@ func (s *voScraper) getRawTable() []Lesson {
 				td.ForEach("[style]", func(i int, sp *colly.HTMLElement) {
 					isMultipleGroups = true
 					getLessonData(sp, &l)
-					m = append(m, l)
+					timetable.lessons = append(timetable.lessons, l)
 				})
 
 				// Single group
 				if !isMultipleGroups {
 					getLessonData(td, &l)
-					m = append(m, l)
+					timetable.lessons = append(timetable.lessons, l)
 				}
 
 			})
@@ -109,7 +113,7 @@ func (s *voScraper) getRawTable() []Lesson {
 
 	err := c.Visit(s.timetableUrl + "/plany/o11.html")
 	if err != nil {
-		return m
+		return timetable
 	}
-	return m
+	return timetable
 }

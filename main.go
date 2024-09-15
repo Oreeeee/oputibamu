@@ -40,9 +40,9 @@ func main() {
 	//	fmt.Println(room.prz)
 	//}
 	//
-	fmt.Println(s.getClasses())
+	//fmt.Println(s.getClasses())
 	//fmt.Println(s.getRooms())
 	//fmt.Println(s.getTeachers())
-	//fmt.Println(s.getRawTable())
+	fmt.Println(s.getRawTable("/plany/o11.html"))
 	//s.getRawTable()
 }

@@ -22,3 +22,8 @@ func InitClassFromHTML(htmlFile string, name string) Class {
 	url := "/plany/" + htmlFile
 	return Class{id, name, getClassNameShort(name), url}
 }
+
+func InitClassFromURL(url string, name string) Class {
+	id := idFromHTML(url)
+	return Class{id, name, getClassNameShort(name), url}
+}

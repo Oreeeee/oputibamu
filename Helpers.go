@@ -2,18 +2,21 @@ package main
 
 import (
 	"fmt"
+	"regexp"
 	"strconv"
 	"strings"
 )
 
 func idFromHTML(htmlFile string) int {
 	var result int
-	var tmp string
 
-	tmp = htmlFile[1:]               // Remove the first letter
-	tmp = strings.Split(tmp, ".")[0] // Remove the .html
+	// HACK: Go's regexp doesn't support lookahead assertions, we have to match
+	// the number including .html and later remove that .html
+	re := regexp.MustCompile(`(\d+)\.html`)
+	tmp := re.FindString(htmlFile)
+	tmp = strings.Split(tmp, ".")[0]
+
 	result, _ = strconv.Atoi(tmp)
-
 	return result
 }
 
