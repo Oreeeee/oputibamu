@@ -1,26 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"github.com/gocolly/colly"
 	"strconv"
 )
 
 type voScraper struct {
 	timetableUrl string
-}
-
-func (s *voScraper) printSomeTimetable() {
-	c := colly.NewCollector()
-
-	c.OnHTML("html", func(e *colly.HTMLElement) {
-		fmt.Println(e.Text)
-	})
-
-	err := c.Visit(s.timetableUrl + "/plany/o1.html")
-	if err != nil {
-		return
-	}
 }
 
 func (s *voScraper) getClasses() []Class {
