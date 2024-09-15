@@ -29,7 +29,6 @@ func main() {
 	fmt.Println(timetableUrl)
 
 	s := voScraper{timetableUrl: timetableUrl}
-	s.printSomeTimetable()
 
 	//cl := InitClass(1, "1a Example Class")
 	//fmt.Println(cl.url)
@@ -41,9 +40,9 @@ func main() {
 	//	fmt.Println(room.prz)
 	//}
 	//
-	//fmt.Println(s.getClasses())
+	fmt.Println(s.getClasses())
 	//fmt.Println(s.getRooms())
 	//fmt.Println(s.getTeachers())
-	fmt.Println(s.getRawTable())
+	//fmt.Println(s.getRawTable())
 	//s.getRawTable()
 }
