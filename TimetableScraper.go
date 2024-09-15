@@ -12,7 +12,7 @@ func getLessonData(lessonElement *colly.HTMLElement, l *Lesson) {
 	subjectRaw := lessonElement.ChildText(".p")
 
 	// Grouping stuff
-	groupRegex := regexp.MustCompile(`\b\d+\/\d+\b`)
+	groupRegex := regexp.MustCompile(`\b\d+/\d+\b`)
 	groupMatches := groupRegex.FindAllString(subjectRaw, -1)
 	if groupMatches == nil {
 		// The lesson is not grouped, use the raw string
@@ -33,8 +33,14 @@ func getLessonData(lessonElement *colly.HTMLElement, l *Lesson) {
 		l.subject = strings.Split(subjectRaw, "-")[0]
 	}
 
-	l.teacher = lessonElement.ChildText(".n")
-	l.room = lessonElement.ChildText(".s")
+	teacherName := lessonElement.ChildText(".n")
+	teacherHTML := lessonElement.ChildAttr(".n", "href")
+
+	roomName := lessonElement.ChildText(".s")
+	roomHTML := lessonElement.ChildAttr(".s", "href")
+
+	l.teacher = InitTeacherFromHTML(teacherHTML, teacherName)
+	l.room = InitRoomFromHTML(roomHTML, roomName)
 }
 
 func (s *voScraper) getRawTable() []Lesson {

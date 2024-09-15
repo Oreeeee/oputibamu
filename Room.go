@@ -20,6 +20,13 @@ func InitRoom(id int, name string) Room {
 	return Room{id, name, url, isPRz, prz}
 }
 
+func InitRoomFromHTML(htmlFile string, name string) Room {
+	id := idFromHTML(htmlFile)
+	url := "/plany/" + htmlFile
+	isPRz, prz := getIsPRz(name)
+	return Room{id, name, url, isPRz, prz}
+}
+
 func getIsPRz(name string) (bool, PRzRoom) {
 	re, _ := regexp.Compile(`([A-Za-z])(\d{3})PRz`)
 	match := re.FindStringSubmatch(name)
