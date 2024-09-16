@@ -26,9 +26,17 @@ func main() {
 	}
 
 	timetableUrl := os.Getenv("TIMETABLE_URL")
+	elektronikApi := os.Getenv("ELEKTRONIK_API")
+	var elektronikMode bool
 	fmt.Println(timetableUrl)
 
-	s := voScraper{timetableUrl: timetableUrl}
+	if elektronikApi == "0" { // Elektronik API disabled
+		elektronikMode = false
+	} else {
+		elektronikMode = true
+	}
+
+	s := voScraper{timetableUrl, elektronikMode, elektronikApi}
 
 	//cl := InitClass(1, "1a Example Class")
 	//fmt.Println(cl.url)

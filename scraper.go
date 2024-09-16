@@ -6,7 +6,9 @@ import (
 )
 
 type voScraper struct {
-	timetableUrl string
+	timetableUrl   string
+	elektronikMode bool
+	elektronikApi  string
 }
 
 func (s *voScraper) getClasses() []Class {
