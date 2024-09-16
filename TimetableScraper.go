@@ -17,17 +17,16 @@ func getLessonData(lessonElement *colly.HTMLElement, l *Lesson) {
 	if groupMatches == nil {
 		// The lesson is not grouped, use the raw string
 		l.subject = subjectRaw
-		l.group = 0
-		l.groupOutOf = 0
 	} else {
 		// The lesson is grouped
 		groupData := strings.Split(groupMatches[0], "/")
 
 		group, _ := strconv.Atoi(groupData[0])
-		groupOutOf, _ := strconv.Atoi(groupData[1])
+		groupMax, _ := strconv.Atoi(groupData[1])
 
-		l.group = group
-		l.groupOutOf = groupOutOf
+		l.group.group = group
+		l.group.groupMax = groupMax
+		l.group.groupName = groupNumberToName(group)
 
 		// Set the subject without the group data
 		l.subject = strings.Split(subjectRaw, "-")[0]
