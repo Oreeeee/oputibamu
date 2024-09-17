@@ -6,20 +6,20 @@ import (
 	"github.com/carlmjohnson/requests"
 )
 
-// TODO: fix the types, they are only temporary
+// TODO: fix the types, they are only temporary (for the most part)
 type ElektronikReplacement struct {
 	LessonNumber string `json:"lesson"`
 	Teacher      string `json:"teacher"`
 	Subject      string `json:"subject"`
-	//class        Class
-	//group        Group
-	Room   string `json:"room"`
-	Deputy string `json:"deputy"`
-	Notes  string `json:"notes"`
+	//Class        Class
+	//Group        Group
+	Classgroup []string `json:"classgroup"`
+	Room       string   `json:"room"`
+	Deputy     string   `json:"deputy"`
+	Notes      string   `json:"notes"`
 }
 
 type ReplacementsResponse struct {
-	//Replacements []map[string]interface{} `json:"rows"`
 	Replacements []ElektronikReplacement `json:"rows"`
 }
 
