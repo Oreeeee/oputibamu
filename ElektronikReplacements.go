@@ -5,15 +5,14 @@ import (
 	"github.com/carlmjohnson/requests"
 )
 
-// TODO: fix the types, they are only temporary (for the most part)
 type ElektronikReplacement struct {
-	LessonNumber string `json:"lesson"`
-	Teacher      string `json:"teacher"`
+	LessonNumber string `json:"lesson"` // TODO: Make this an int
+	TeacherName  string `json:"teacher"`
 	Subject      string `json:"subject"`
 	//Class        Class
 	//Group        Group
 	Classgroup []string `json:"classgroup"`
-	Room       string   `json:"room"`
+	RoomName   string   `json:"room"`
 	Deputy     string   `json:"deputy"`
 	Notes      string   `json:"notes"`
 }
