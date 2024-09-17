@@ -53,4 +53,6 @@ func main() {
 	//fmt.Println(s.getTeachers())
 	fmt.Println(s.getRawTable("/plany/o11.html"))
 	//s.getRawTable()
+	//fmt.Println(s.getReplacementData())
+	//s.getReplacementData()
 }
