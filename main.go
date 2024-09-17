@@ -51,8 +51,8 @@ func main() {
 	//fmt.Println(s.getClasses())
 	//fmt.Println(s.getRooms())
 	//fmt.Println(s.getTeachers())
-	fmt.Println(s.getRawTable("/plany/o11.html"))
+	//fmt.Println(s.getRawTable("/plany/o11.html"))
 	//s.getRawTable()
 	//fmt.Println(s.getReplacementData())
-	//s.getReplacementData()
+	s.getReplacementData()
 }

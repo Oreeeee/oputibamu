@@ -6,19 +6,23 @@ import (
 	"github.com/carlmjohnson/requests"
 )
 
+// TODO: fix the types, they are only temporary
 type ElektronikReplacement struct {
-	lessonNumber int
-	class        Class
-	group        Group
-	room         Room
+	LessonNumber string `json:"lesson"`
+	//class        Class
+	//group        Group
+	Room   string `json:"room"`
+	Deputy string `json:"deputy"`
 }
 
 type ReplacementsResponse struct {
-	Replacements []map[string]string `json:"rows"`
+	//Replacements []map[string]interface{} `json:"rows"`
+	Replacements []ElektronikReplacement `json:"rows"`
 }
 
 func (s *voScraper) getReplacementData() {
 	// TODO: fix
+	//var resp map[string]interface{}
 	var resp ReplacementsResponse
 	err := requests.
 		URL(s.elektronikApi + "/replacements.json").
