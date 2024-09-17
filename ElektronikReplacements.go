@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"github.com/carlmjohnson/requests"
 )
 
@@ -23,9 +22,7 @@ type ReplacementsResponse struct {
 	Replacements []ElektronikReplacement `json:"rows"`
 }
 
-func (s *voScraper) getReplacementData() {
-	// TODO: fix
-	//var resp map[string]interface{}
+func (s *voScraper) getReplacementData() []ElektronikReplacement {
 	var resp ReplacementsResponse
 	err := requests.
 		URL(s.elektronikApi + "/replacements.json").
@@ -33,9 +30,8 @@ func (s *voScraper) getReplacementData() {
 		Fetch(context.Background())
 
 	if err != nil {
-		fmt.Println("Error fetching replacement data:", err)
-		return
+		return resp.Replacements
 	}
 
-	fmt.Println(resp)
+	return resp.Replacements
 }
