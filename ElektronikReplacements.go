@@ -9,10 +9,13 @@ import (
 // TODO: fix the types, they are only temporary
 type ElektronikReplacement struct {
 	LessonNumber string `json:"lesson"`
+	Teacher      string `json:"teacher"`
+	Subject      string `json:"subject"`
 	//class        Class
 	//group        Group
 	Room   string `json:"room"`
 	Deputy string `json:"deputy"`
+	Notes  string `json:"notes"`
 }
 
 type ReplacementsResponse struct {
