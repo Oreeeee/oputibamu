@@ -2,8 +2,9 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"github.com/carlmjohnson/requests"
+	"regexp"
+	"strconv"
 )
 
 type ElektronikReplacement struct {
@@ -23,7 +24,12 @@ type ReplacementsResponse struct {
 	Replacements []ElektronikReplacement `json:"rows"`
 }
 
-func (s *voScraper) getReplacementData() ReplacementsResponse {
+type ReplacementsData struct {
+	day          int
+	replacements []ElektronikReplacement
+}
+
+func (s *voScraper) fetchReplacementData() ReplacementsResponse {
 	var resp ReplacementsResponse
 	err := requests.
 		URL(s.elektronikApi + "/replacements.json").
@@ -33,7 +39,27 @@ func (s *voScraper) getReplacementData() ReplacementsResponse {
 	if err != nil {
 		return resp
 	}
-	fmt.Println(resp)
 
 	return resp
+}
+
+func (s *voScraper) getReplacementData() ReplacementsData {
+	res := s.fetchReplacementData()
+	re := regexp.MustCompile(`\b(pon|wt|sr|czw|pt)\b`)
+	day := Days[re.FindString(res.Date)]
+	return ReplacementsData{day, res.Replacements}
+}
+
+func (r *ReplacementsData) getCurrentLessonReplacements(day int, l Lesson, c Class, g Group) ElektronikReplacement {
+	if r.day != day {
+		// No data for this day
+		return ElektronikReplacement{}
+	}
+	for _, rep := range r.replacements {
+		lN, _ := strconv.Atoi(rep.LessonNumber)
+		if lN == l.number && rep.Classgroup[0] == c.nameShort {
+			return rep
+		}
+	}
+	return ElektronikReplacement{}
 }

@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func getLessonData(lessonElement *colly.HTMLElement, l *Lesson) {
+func getLessonData(lessonElement *colly.HTMLElement, l *Lesson, c Class, rep ReplacementsData) {
 	subjectRaw := lessonElement.ChildText(".p")
 
 	// Grouping stuff
@@ -38,6 +38,7 @@ func getLessonData(lessonElement *colly.HTMLElement, l *Lesson) {
 	roomName := lessonElement.ChildText(".s")
 	roomHTML := lessonElement.ChildAttr(".s", "href")
 
+	l.replacement = rep.getCurrentLessonReplacements(l.day, *l, c, Group{})
 	l.teacher = InitTeacherFromHTML(teacherHTML, teacherName)
 	l.room = InitRoomFromHTML(roomHTML, roomName)
 }
@@ -46,6 +47,7 @@ func (s *voScraper) getRawTable(url string) Timetable {
 	c := colly.NewCollector()
 	timetable := Timetable{}
 	currentDay := 0
+	replacements := s.getReplacementData()
 
 	c.OnHTML(".tytulnapis", func(title *colly.HTMLElement) { // Gets the class name
 		timetable.class = InitClassFromURL(url, title.Text)
@@ -95,13 +97,13 @@ func (s *voScraper) getRawTable(url string) Timetable {
 				// Multiple groups
 				td.ForEach("[style]", func(i int, sp *colly.HTMLElement) {
 					isMultipleGroups = true
-					getLessonData(sp, &l)
+					getLessonData(sp, &l, timetable.class, replacements)
 					timetable.lessons = append(timetable.lessons, l)
 				})
 
 				// Single group
 				if !isMultipleGroups {
-					getLessonData(td, &l)
+					getLessonData(td, &l, timetable.class, replacements)
 					timetable.lessons = append(timetable.lessons, l)
 				}
 
