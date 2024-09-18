@@ -112,7 +112,7 @@ func (s *voScraper) getRawTable(url string) Timetable {
 		})
 	})
 
-	err := c.Visit(s.timetableUrl + "/plany/o11.html")
+	err := c.Visit(s.timetableUrl + url)
 	if err != nil {
 		return timetable
 	}
