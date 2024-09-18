@@ -1,4 +1,4 @@
-package main
+package oputibamu
 
 var Days = map[string]int{
 	"pon": 0,

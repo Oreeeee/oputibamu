@@ -1,4 +1,4 @@
-package main
+package oputibamu
 
 type PRzRoom struct {
 	Building string `json:"building"`

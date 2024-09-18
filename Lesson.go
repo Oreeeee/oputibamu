@@ -1,4 +1,4 @@
-package main
+package oputibamu
 
 type Lesson struct {
 	Number      int                   `json:"number"`

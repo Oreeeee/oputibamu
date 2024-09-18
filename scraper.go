@@ -1,4 +1,4 @@
-package main
+package oputibamu
 
 import (
 	"github.com/gocolly/colly"

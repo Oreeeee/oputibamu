@@ -1,4 +1,4 @@
-package main
+package oputibamu
 
 type Timetable struct {
 	Class   Class    `json:"class"`

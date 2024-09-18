@@ -1,4 +1,4 @@
-package main
+package oputibamu
 
 type Teacher struct {
 	Id   int    `json:"id"`
