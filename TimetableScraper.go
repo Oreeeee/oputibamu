@@ -16,7 +16,7 @@ func getLessonData(lessonElement *colly.HTMLElement, l *Lesson, c Class, rep Rep
 	groupMatches := groupRegex.FindAllString(subjectRaw, -1)
 	if groupMatches == nil {
 		// The lesson is not grouped, use the raw string
-		l.subject = subjectRaw
+		l.Subject = subjectRaw
 	} else {
 		// The lesson is grouped
 		groupData := strings.Split(groupMatches[0], "/")
@@ -24,12 +24,12 @@ func getLessonData(lessonElement *colly.HTMLElement, l *Lesson, c Class, rep Rep
 		group, _ := strconv.Atoi(groupData[0])
 		groupMax, _ := strconv.Atoi(groupData[1])
 
-		l.group.group = group
-		l.group.groupMax = groupMax
-		l.group.groupName = groupNumberToName(group)
+		l.Group.Group = group
+		l.Group.GroupMax = groupMax
+		l.Group.GroupName = groupNumberToName(group)
 
 		// Set the subject without the group data
-		l.subject = strings.Split(subjectRaw, "-")[0]
+		l.Subject = strings.Split(subjectRaw, "-")[0]
 	}
 
 	teacherName := lessonElement.ChildText(".n")
@@ -38,9 +38,9 @@ func getLessonData(lessonElement *colly.HTMLElement, l *Lesson, c Class, rep Rep
 	roomName := lessonElement.ChildText(".s")
 	roomHTML := lessonElement.ChildAttr(".s", "href")
 
-	l.replacement = rep.getCurrentLessonReplacements(l.day, *l, c, Group{})
-	l.teacher = InitTeacherFromHTML(teacherHTML, teacherName)
-	l.room = InitRoomFromHTML(roomHTML, roomName)
+	l.Replacement = rep.getCurrentLessonReplacements(l.Day, *l, c, Group{})
+	l.Teacher = InitTeacherFromHTML(teacherHTML, teacherName)
+	l.Room = InitRoomFromHTML(roomHTML, roomName)
 }
 
 func (s *voScraper) getRawTable(url string) Timetable {
@@ -50,7 +50,7 @@ func (s *voScraper) getRawTable(url string) Timetable {
 	replacements := s.getReplacementData()
 
 	c.OnHTML(".tytulnapis", func(title *colly.HTMLElement) { // Gets the class name
-		timetable.class = InitClassFromURL(url, title.Text)
+		timetable.Class = InitClassFromURL(url, title.Text)
 	})
 
 	c.OnHTML(".tabela", func(tabela *colly.HTMLElement) { // The main table
@@ -70,21 +70,21 @@ func (s *voScraper) getRawTable(url string) Timetable {
 				// Lesson number
 				lN, _ := strconv.Atoi(td.Text)
 				fmt.Printf("Lesson: %v\n", td.Text)
-				l.number = lN
+				l.Number = lN
 			})
 
 			// DO NOT create a new lesson here
 			tr.ForEach("td .g", func(i int, td *colly.HTMLElement) {
 				// Hours of the lesson
 				fmt.Printf("Hours: %v\n", td.Text)
-				l.hours = td.Text
+				l.Hours = td.Text
 			})
 
 			// Here... it gets... complicated...
 			tr.ForEach("td .l", func(i int, td *colly.HTMLElement) {
 				// Lesson data field
 
-				l.day = currentDay
+				l.Day = currentDay
 				currentDay++
 
 				if td.Text == "\xc2\xa0" {
@@ -97,14 +97,14 @@ func (s *voScraper) getRawTable(url string) Timetable {
 				// Multiple groups
 				td.ForEach("[style]", func(i int, sp *colly.HTMLElement) {
 					isMultipleGroups = true
-					getLessonData(sp, &l, timetable.class, replacements)
-					timetable.lessons = append(timetable.lessons, l)
+					getLessonData(sp, &l, timetable.Class, replacements)
+					timetable.Lessons = append(timetable.Lessons, l)
 				})
 
 				// Single group
 				if !isMultipleGroups {
-					getLessonData(td, &l, timetable.class, replacements)
-					timetable.lessons = append(timetable.lessons, l)
+					getLessonData(td, &l, timetable.Class, replacements)
+					timetable.Lessons = append(timetable.Lessons, l)
 				}
 
 			})

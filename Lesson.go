@@ -1,14 +1,14 @@
 package main
 
 type Lesson struct {
-	number      int
-	hours       string
-	subject     string
-	teacher     Teacher
-	room        Room
-	day         int
-	group       Group
-	replacement ElektronikReplacement
+	Number      int                   `json:"number"`
+	Hours       string                `json:"hours"`
+	Subject     string                `json:"subject"`
+	Teacher     Teacher               `json:"teacher"`
+	Room        Room                  `json:"room"`
+	Day         int                   `json:"day"`
+	Group       Group                 `json:"group"`
+	Replacement ElektronikReplacement `json:"replacement"`
 }
 
 func InitEmptyLesson() Lesson {

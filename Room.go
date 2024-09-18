@@ -6,11 +6,11 @@ import (
 )
 
 type Room struct {
-	id    int
-	name  string
-	url   string
-	isPRz bool
-	prz   PRzRoom
+	Id    int     `json:"id"`
+	Name  string  `json:"name"`
+	Url   string  `json:"url"`
+	IsPRz bool    `json:"isPRz"`
+	Prz   PRzRoom `json:"prz"`
 }
 
 func InitRoom(id int, name string) Room {

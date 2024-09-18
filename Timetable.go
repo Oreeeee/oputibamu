@@ -1,6 +1,6 @@
 package main
 
 type Timetable struct {
-	class   Class
-	lessons []Lesson
+	Class   Class    `json:"class"`
+	Lessons []Lesson `json:"lessons"`
 }

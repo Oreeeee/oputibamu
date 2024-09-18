@@ -1,9 +1,9 @@
 package main
 
 type Teacher struct {
-	id   int
-	name string
-	url  string
+	Id   int    `json:"id"`
+	Name string `json:"name"`
+	Url  string `json:"url"`
 }
 
 func InitTeacher(id int, name string) Teacher {

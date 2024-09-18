@@ -1,6 +1,6 @@
 package main
 
 type PRzRoom struct {
-	building string
-	room     int
+	Building string `json:"building"`
+	Room     int    `json:"room"`
 }

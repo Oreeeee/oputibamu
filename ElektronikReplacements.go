@@ -57,7 +57,7 @@ func (r *ReplacementsData) getCurrentLessonReplacements(day int, l Lesson, c Cla
 	}
 	for _, rep := range r.replacements {
 		lN, _ := strconv.Atoi(rep.LessonNumber)
-		if lN == l.number && rep.Classgroup[0] == c.nameShort && rep.Classgroup[1] == l.group.groupName {
+		if lN == l.Number && rep.Classgroup[0] == c.NameShort && rep.Classgroup[1] == l.Group.GroupName {
 			return rep
 		}
 	}

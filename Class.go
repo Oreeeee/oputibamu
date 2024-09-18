@@ -3,10 +3,10 @@ package main
 import "strings"
 
 type Class struct {
-	id        int
-	name      string
-	nameShort string
-	url       string
+	Id        int    `json:"id"`
+	Name      string `json:"name"`
+	NameShort string `json:"nameShort"`
+	Url       string `json:"url"`
 }
 
 func getClassNameShort(name string) string {
