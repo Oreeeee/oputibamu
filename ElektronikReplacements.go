@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"github.com/carlmjohnson/requests"
 )
 
@@ -18,10 +19,11 @@ type ElektronikReplacement struct {
 }
 
 type ReplacementsResponse struct {
+	Date         string                  `json:"date"`
 	Replacements []ElektronikReplacement `json:"rows"`
 }
 
-func (s *voScraper) getReplacementData() []ElektronikReplacement {
+func (s *voScraper) getReplacementData() ReplacementsResponse {
 	var resp ReplacementsResponse
 	err := requests.
 		URL(s.elektronikApi + "/replacements.json").
@@ -29,8 +31,9 @@ func (s *voScraper) getReplacementData() []ElektronikReplacement {
 		Fetch(context.Background())
 
 	if err != nil {
-		return resp.Replacements
+		return resp
 	}
+	fmt.Println(resp)
 
-	return resp.Replacements
+	return resp
 }
