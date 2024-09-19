@@ -8,6 +8,6 @@ type Group struct {
 	GroupName string `json:"groupName"`
 }
 
-func groupNumberToName(group int) string {
+func GroupNumberToName(group int) string {
 	return fmt.Sprintf("gr%d", group)
 }

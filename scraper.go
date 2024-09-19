@@ -6,12 +6,12 @@ import (
 )
 
 type VOScraper struct {
-	timetableUrl   string
-	elektronikMode bool
-	elektronikApi  string
+	TimetableURL   string
+	ElektronikMode bool
+	ElektronikAPI  string
 }
 
-func (s *VOScraper) getClasses() []Class {
+func (s *VOScraper) GetClasses() []Class {
 	var cA []Class
 	c := colly.NewCollector()
 
@@ -24,7 +24,7 @@ func (s *VOScraper) getClasses() []Class {
 		})
 	})
 
-	err := c.Visit(s.timetableUrl + "/lista.html")
+	err := c.Visit(s.TimetableURL + "/lista.html")
 	if err != nil {
 		return nil
 	}
@@ -32,7 +32,7 @@ func (s *VOScraper) getClasses() []Class {
 	return cA
 }
 
-func (s *VOScraper) getRooms() []Room {
+func (s *VOScraper) GetRooms() []Room {
 	var cA []Room
 	c := colly.NewCollector()
 
@@ -43,7 +43,7 @@ func (s *VOScraper) getRooms() []Room {
 		})
 	})
 
-	err := c.Visit(s.timetableUrl + "/lista.html")
+	err := c.Visit(s.TimetableURL + "/lista.html")
 	if err != nil {
 		return nil
 	}
@@ -51,7 +51,7 @@ func (s *VOScraper) getRooms() []Room {
 	return cA
 }
 
-func (s *VOScraper) getTeachers() []Teacher {
+func (s *VOScraper) GetTeachers() []Teacher {
 	var cA []Teacher
 	c := colly.NewCollector()
 
@@ -62,7 +62,7 @@ func (s *VOScraper) getTeachers() []Teacher {
 		})
 	})
 
-	err := c.Visit(s.timetableUrl + "/lista.html")
+	err := c.Visit(s.TimetableURL + "/lista.html")
 	if err != nil {
 		return nil
 	}

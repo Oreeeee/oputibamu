@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func getLessonData(lessonElement *colly.HTMLElement, l *Lesson, c Class, rep ReplacementsData) {
+func GetLessonData(lessonElement *colly.HTMLElement, l *Lesson, c Class, rep ReplacementsData) {
 	subjectRaw := lessonElement.ChildText(".p")
 
 	// Grouping stuff
@@ -26,7 +26,7 @@ func getLessonData(lessonElement *colly.HTMLElement, l *Lesson, c Class, rep Rep
 
 		l.Group.Group = group
 		l.Group.GroupMax = groupMax
-		l.Group.GroupName = groupNumberToName(group)
+		l.Group.GroupName = GroupNumberToName(group)
 
 		// Set the subject without the group data
 		l.Subject = strings.Split(subjectRaw, "-")[0]
@@ -38,16 +38,16 @@ func getLessonData(lessonElement *colly.HTMLElement, l *Lesson, c Class, rep Rep
 	roomName := lessonElement.ChildText(".s")
 	roomHTML := lessonElement.ChildAttr(".s", "href")
 
-	l.Replacement = rep.getCurrentLessonReplacements(l.Day, *l, c, Group{})
+	l.Replacement = rep.GetCurrentLessonReplacement(l.Day, *l, c, Group{})
 	l.Teacher = InitTeacherFromHTML(teacherHTML, teacherName)
 	l.Room = InitRoomFromHTML(roomHTML, roomName)
 }
 
-func (s *VOScraper) getRawTable(url string) Timetable {
+func (s *VOScraper) GetRawTable(url string) Timetable {
 	c := colly.NewCollector()
 	timetable := Timetable{}
 	currentDay := 0
-	replacements := s.getReplacementData()
+	replacements := s.GetReplacementData()
 
 	c.OnHTML(".tytulnapis", func(title *colly.HTMLElement) { // Gets the class name
 		timetable.Class = InitClassFromURL(url, title.Text)
@@ -97,13 +97,13 @@ func (s *VOScraper) getRawTable(url string) Timetable {
 				// Multiple groups
 				td.ForEach("[style]", func(i int, sp *colly.HTMLElement) {
 					isMultipleGroups = true
-					getLessonData(sp, &l, timetable.Class, replacements)
+					GetLessonData(sp, &l, timetable.Class, replacements)
 					timetable.Lessons = append(timetable.Lessons, l)
 				})
 
 				// Single group
 				if !isMultipleGroups {
-					getLessonData(td, &l, timetable.Class, replacements)
+					GetLessonData(td, &l, timetable.Class, replacements)
 					timetable.Lessons = append(timetable.Lessons, l)
 				}
 
@@ -112,7 +112,7 @@ func (s *VOScraper) getRawTable(url string) Timetable {
 		})
 	})
 
-	err := c.Visit(s.timetableUrl + url)
+	err := c.Visit(s.TimetableURL + url)
 	if err != nil {
 		return timetable
 	}

@@ -29,10 +29,10 @@ type ReplacementsData struct {
 	replacements []ElektronikReplacement
 }
 
-func (s *VOScraper) fetchReplacementData() ReplacementsResponse {
+func (s *VOScraper) FetchReplacementData() ReplacementsResponse {
 	var resp ReplacementsResponse
 	err := requests.
-		URL(s.elektronikApi + "/replacements.json").
+		URL(s.ElektronikAPI + "/replacements.json").
 		ToJSON(&resp).
 		Fetch(context.Background())
 
@@ -43,14 +43,14 @@ func (s *VOScraper) fetchReplacementData() ReplacementsResponse {
 	return resp
 }
 
-func (s *VOScraper) getReplacementData() ReplacementsData {
-	res := s.fetchReplacementData()
+func (s *VOScraper) GetReplacementData() ReplacementsData {
+	res := s.FetchReplacementData()
 	re := regexp.MustCompile(`\b(pon|wt|sr|czw|pt)\b`)
 	day := Days[re.FindString(res.Date)]
 	return ReplacementsData{day, res.Replacements}
 }
 
-func (r *ReplacementsData) getCurrentLessonReplacements(day int, l Lesson, c Class, g Group) ElektronikReplacement {
+func (r *ReplacementsData) GetCurrentLessonReplacement(day int, l Lesson, c Class, g Group) ElektronikReplacement {
 	if r.day != day {
 		// No data for this day
 		return ElektronikReplacement{}

@@ -7,11 +7,11 @@ type Teacher struct {
 }
 
 func InitTeacher(id int, name string) Teacher {
-	return Teacher{id, name, idToUrl("n", id)}
+	return Teacher{id, name, IdToUrl("n", id)}
 }
 
 func InitTeacherFromHTML(htmlFile string, name string) Teacher {
-	id := idFromHTML(htmlFile)
+	id := IdFromHTML(htmlFile)
 	url := "/plany/" + htmlFile
 	return Teacher{id, name, url}
 }

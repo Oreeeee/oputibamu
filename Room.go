@@ -15,11 +15,11 @@ type Room struct {
 
 func InitRoom(id int, name string) Room {
 	isPRz, prz := getIsPRz(name)
-	return Room{id, name, idToUrl("s", id), isPRz, prz}
+	return Room{id, name, IdToUrl("s", id), isPRz, prz}
 }
 
 func InitRoomFromHTML(htmlFile string, name string) Room {
-	id := idFromHTML(htmlFile)
+	id := IdFromHTML(htmlFile)
 	url := "/plany/" + htmlFile
 	isPRz, prz := getIsPRz(name)
 	return Room{id, name, url, isPRz, prz}

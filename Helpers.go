@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func idFromHTML(htmlFile string) int {
+func IdFromHTML(htmlFile string) int {
 	var result int
 
 	// HACK: Go's regexp doesn't support lookahead assertions, we have to match
@@ -20,6 +20,6 @@ func idFromHTML(htmlFile string) int {
 	return result
 }
 
-func idToUrl(prefix string, id int) string {
+func IdToUrl(prefix string, id int) string {
 	return fmt.Sprintf("/plany/%s%d.html", prefix, id)
 }

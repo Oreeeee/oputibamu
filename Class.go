@@ -9,21 +9,21 @@ type Class struct {
 	Url       string `json:"url"`
 }
 
-func getClassNameShort(name string) string {
+func GetClassNameShort(name string) string {
 	return strings.Split(name, " ")[0]
 }
 
 func InitClass(id int, name string) Class {
-	return Class{id, name, getClassNameShort(name), idToUrl("o", id)}
+	return Class{id, name, GetClassNameShort(name), IdToUrl("o", id)}
 }
 
 func InitClassFromHTML(htmlFile string, name string) Class {
-	id := idFromHTML(htmlFile)
+	id := IdFromHTML(htmlFile)
 	url := "/plany/" + htmlFile
-	return Class{id, name, getClassNameShort(name), url}
+	return Class{id, name, GetClassNameShort(name), url}
 }
 
 func InitClassFromURL(url string, name string) Class {
-	id := idFromHTML(url)
-	return Class{id, name, getClassNameShort(name), url}
+	id := IdFromHTML(url)
+	return Class{id, name, GetClassNameShort(name), url}
 }
