@@ -5,13 +5,13 @@ import (
 	"strconv"
 )
 
-type voScraper struct {
+type VOScraper struct {
 	timetableUrl   string
 	elektronikMode bool
 	elektronikApi  string
 }
 
-func (s *voScraper) getClasses() []Class {
+func (s *VOScraper) getClasses() []Class {
 	var cA []Class
 	c := colly.NewCollector()
 
@@ -32,7 +32,7 @@ func (s *voScraper) getClasses() []Class {
 	return cA
 }
 
-func (s *voScraper) getRooms() []Room {
+func (s *VOScraper) getRooms() []Room {
 	var cA []Room
 	c := colly.NewCollector()
 
@@ -51,7 +51,7 @@ func (s *voScraper) getRooms() []Room {
 	return cA
 }
 
-func (s *voScraper) getTeachers() []Teacher {
+func (s *VOScraper) getTeachers() []Teacher {
 	var cA []Teacher
 	c := colly.NewCollector()
 

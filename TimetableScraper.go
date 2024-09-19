@@ -43,7 +43,7 @@ func getLessonData(lessonElement *colly.HTMLElement, l *Lesson, c Class, rep Rep
 	l.Room = InitRoomFromHTML(roomHTML, roomName)
 }
 
-func (s *voScraper) getRawTable(url string) Timetable {
+func (s *VOScraper) getRawTable(url string) Timetable {
 	c := colly.NewCollector()
 	timetable := Timetable{}
 	currentDay := 0

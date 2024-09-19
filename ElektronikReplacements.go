@@ -29,7 +29,7 @@ type ReplacementsData struct {
 	replacements []ElektronikReplacement
 }
 
-func (s *voScraper) fetchReplacementData() ReplacementsResponse {
+func (s *VOScraper) fetchReplacementData() ReplacementsResponse {
 	var resp ReplacementsResponse
 	err := requests.
 		URL(s.elektronikApi + "/replacements.json").
@@ -43,7 +43,7 @@ func (s *voScraper) fetchReplacementData() ReplacementsResponse {
 	return resp
 }
 
-func (s *voScraper) getReplacementData() ReplacementsData {
+func (s *VOScraper) getReplacementData() ReplacementsData {
 	res := s.fetchReplacementData()
 	re := regexp.MustCompile(`\b(pon|wt|sr|czw|pt)\b`)
 	day := Days[re.FindString(res.Date)]
